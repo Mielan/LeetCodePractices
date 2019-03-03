@@ -1,0 +1,47 @@
+
+// My STACK... WHY DOES NOT WORK? Check!!
+class Solution {
+    
+    public boolean isValid(String S) {
+        // Feels similar to valid parentheses
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < S.length(); i++){
+            if(S.charAt(i) == 'c'){
+                if(stack.isEmpty() || stack.pop() != 'b'){
+                    return false;
+                }
+                if(stack.isEmpty() || stack.pop() != 'a'){
+                    return false;
+                }
+            }
+            stack.push(S.charAt(i));
+        }
+        return stack.isEmpty();
+        
+    }
+}
+
+// This is better. It was because an else 
+class Solution {
+    
+    public boolean isValid(String S) {
+        // Feels similar to valid parentheses
+        Stack<Character> stack = new Stack<>();
+        for (char c: S.toCharArray()){
+            if(c == 'c'){
+                //System.out.println(stack.isEmpty());
+                if(stack.isEmpty() || stack.pop() != 'b'){
+                    return false;
+                }
+                if(stack.isEmpty() || stack.pop() != 'a'){
+                    return false;
+                }
+            } else {
+                stack.push(c);
+            }      
+        }
+        //System.out.println(stack.isEmpty());
+        return stack.isEmpty();
+        
+    }
+}
