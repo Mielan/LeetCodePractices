@@ -1,0 +1,56 @@
+// It is very interesting to find that String.split does not work in case ".". 
+// https://stackoverflow.com/questions/7935858/the-split-method-in-java-does-not-work-on-a-dot
+// becasue dot is a reserved char in regex. 
+
+
+// And String.substring(), not String.subString();
+
+import java.lang.String;
+import java.lang.Character;
+class Solution {
+    public String maskPII(String S) {
+        
+        for (int i = 0; i < S.length(); i++){
+            if(S.charAt(i) == '@'){
+                return maskEmail(S);
+            } 
+        }
+        return maskPhone(S);
+    }
+    
+    public String maskEmail(String S){
+        String[] beforeAfter = S.split("@");
+        
+        String name1 = beforeAfter[0].toLowerCase();
+        String[] another = beforeAfter[1].split("\\.");
+        System.out.println(beforeAfter[1]);
+        String name2 = another[0].toLowerCase();
+        System.out.println(name2);
+        String name3 = another[1].toLowerCase();
+        String result = name1.charAt(0) + "*****" + name1.charAt(name1.length() - 1) + "@" + name2 + "." + name3;
+        return result;
+        
+    }
+    
+    public String maskPhone(String S){
+        String phoneNum = "";
+        for (int i = 0; i < S.length(); i++){
+            if(Character.isDigit(S.charAt(i))){
+                phoneNum = phoneNum + S.charAt(i);
+            }
+        }
+        String result = "";
+        
+        if (phoneNum.length() == 10){
+            result = "***-***-" + phoneNum.substring(phoneNum.length() - 4);
+        } else {
+            int num = phoneNum.length() - 10;
+            result = "+";
+            for (int j = 0; j < num; j++){
+                result = result + "*";
+            }
+            result = result + "-***-***-" + phoneNum.substring(phoneNum.length() - 4);
+        }
+        return result;
+    }
+}
