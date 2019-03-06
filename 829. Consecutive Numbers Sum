@@ -1,0 +1,15 @@
+// Understand the powerfulness of math
+// However, when doing this, becareful to check 1s and starting nums; could matter a lot later 
+
+class Solution {
+    public int consecutiveNumbersSum(int N) {
+        // if it can be written as n * ((n + 1))/2 + a)
+        int result = 1;
+        for (int i = 2; (i * (i + 1) / 2) <= N; i++ ){
+            if((N - i * (i + 1) / 2) % i == 0){
+                result++;
+            }
+        }
+        return result;
+    }
+}
