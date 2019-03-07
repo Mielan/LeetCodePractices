@@ -1,0 +1,75 @@
+// V1 does not work
+class Solution {
+    public boolean isLongPressedName(String name, String typed) {
+        if(name.equals(typed)) {
+            return true;
+        }
+        int longpressed = 0;
+        for (int i = 0; i < name.length(); i++){
+            if(i + longpressed > typed.length() - 1){
+                    return false;
+                }
+            if(i+longpressed < typed.length() - 1 && name.charAt(i) == typed.charAt(i+longpressed)){
+                continue;
+            } else {
+                longpressed++;
+            }
+            while(i+longpressed < typed.length() - 1 && name.charAt(i) != typed.charAt(i+longpressed)){
+                longpressed++;
+                if(i + longpressed > typed.length() - 1){
+                    return false;
+                }
+            }    
+        }
+        return true;
+    }
+}
+
+
+// STILL DOES NOT WORK. WHY HAVE INDEXOUTOFBOUND ERROR???
+class Solution {
+    public boolean isLongPressedName(String name, String typed) {
+        if(name.equals(typed)) {
+            return true;
+        }
+        int offset = 0;
+        // iterate through name. see if all correpond in typed
+        
+        for (int i = 0; i < name.length(); i++){
+            if(offset + i < typed.length() ){
+                while(offset + i < typed.length() && 
+                    name.charAt(i) != typed.charAt(offset + i)){
+                    offset++;
+                }
+            
+                System.out.println("offset = " + offset + ".... i = " + i);
+                if(name.charAt(i) != typed.charAt(offset + i) || 
+                    (offset + i == typed.length() - 1 && i != name.length() - 1)){
+                    return false;
+                }
+            }
+            
+        }
+        return offset + name.length() == typed.length();
+    }
+}
+
+// After seeing solution
+class Solution {
+    public boolean isLongPressedName(String name, String typed) {
+        if(name.equals(typed)) {
+            return true;
+        }
+        int i = 0;
+        int n = name.length();
+        int t = typed.length();
+        for (int j = 0; j < t; j++){
+            if(i < n && name.charAt(i) == typed.charAt(j)){
+                i++;
+            } else if(j == 0 || typed.charAt(j) != typed.charAt(j - 1)){
+                return false;
+            }
+        }
+        return i == n;
+    }
+}
