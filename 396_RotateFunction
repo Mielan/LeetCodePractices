@@ -1,0 +1,53 @@
+// Wow. In today's random contest I got weekly contest 4! 
+// Good days when you still get cash price in leetcode contests :D
+
+// FIRST TRY. Does not work, have TLE. It is reasonable for me to have TLE, since I have three nested for loops
+// But I do not know how to solve other than this method.
+import java.lang.Math;
+
+class Solution {
+    public int maxRotateFunction(int[] A) {
+        int length = A.length;
+        if(length == 0) return 0;
+        int result = Integer.MIN_VALUE;
+        for(int i = 0; i < length; i++){ // i = indexshift
+            int sumFa = 0;
+            for(int j = 0; j < length; j++){ // here j is index in A. 
+                for(int k = 0; j < length; k++){ // lala
+                    // when k + i >= A.length, minus A.length.
+                    int index = i + k;
+                    if (index >= length) index -= length;
+                    sumFa += index * A[j];
+                }
+            }
+            if(result < sumFa){
+                result = sumFa;
+            }
+        }
+        return result;
+    }
+}
+
+// Ahh. Whenever I see a problem might need many for loop, try simplify with math fitst 
+// Using INDUCTION. F(k) = F(k-1) + sum - n*Bk[0]
+// SOLUTION. 
+class Solution {
+    public int maxRotateFunction(int[] A) {
+        // first calculate F(0) and sum
+        int length = A.length;
+        int F = 0;
+        int sum = 0;
+        for(int i = 0; i < length; i++) {
+            sum += A[i];
+            F += i * A[i];
+        }
+        int result = F;
+        for(int i = length - 1; i > 0; i--){
+            F = F + sum - length * A[i];
+            if(F > result){
+                result = F;
+            }
+        }
+        return result;
+    }
+}
