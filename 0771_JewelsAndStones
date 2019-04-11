@@ -1,0 +1,20 @@
+// My solutio. Very easy problem. 
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+        int count = 0;
+        for(int i = 0; i < S.length(); i++){
+            for(int j = 0; j < J.length(); j++){
+                if(S.charAt(i) == J.charAt(j)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
+
+// However... One liner! replace all is a interesting method to know. 
+// but it is worth noting that the shortest code is not always best code. time and space complexity are more important.
+public int numJewelsInStones(String J, String S) {
+    return S.replaceAll("[^" + J + "]", "").length();
+}
