@@ -1,0 +1,26 @@
+// My solution. Learned about bitwise comparison, and also the method of Integer.toBinaryString();
+
+class Solution {
+    public int hammingDistance(int x, int y) {
+        int diff = x ^ y;
+        String dif = Integer.toBinaryString(diff);
+        int result = 0;
+        //System.out.println(dif);
+        for(int i = 0; i < dif.length(); i++){
+            if(dif.charAt(i) == '1'){
+                result++;
+            }
+        }
+        return result;
+    }
+}
+
+// SOLUTION. AHH. When you though you did sth well, there would always be a more elegant solution. 
+// Learned about Integer.bitCount();
+class Solution
+{
+    public int hammingDistance(int x, int y)
+    {
+    return Integer.bitCount(x^y);
+    }
+}    
